@@ -58,6 +58,9 @@ function selectRandomCard() {
 async function changeCardTo(card) {
 	const element = document.querySelector('.front img');
 	element.src = `assets/cards/${card}.png`;
+
+	const newElement = document.querySelector('.front img');
+	return new Promise(resolve => newElement.complete ? resolve : newElement.addEventListener('load', resolve));
 }
 
 function getResultAccordingToCard(card) {
@@ -103,7 +106,7 @@ function drawCard() {
 
 		pushToHistory(card);
 
-		changeCardTo(card);
+		await changeCardTo(card);
 
 		displayResult(card);
 
